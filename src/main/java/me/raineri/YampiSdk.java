@@ -1,21 +1,25 @@
 package me.raineri;
 
 import me.raineri.client.YampiConfig;
+public class YampiSdk {
 
-public class YampiSdk
-{
-    private YampiConfig instanceConfiguration;
+    private final YampiConfig config;
+
+    private YampiSdk(Builder builder) {
+        this.config = new YampiConfig(
+                builder.storeAlias,
+                builder.userToken,
+                builder.userSecretToken,
+                builder.environment
+        );
+    }
 
     public static Builder builder() {
         return new Builder();
     }
 
-
-    private YampiSdk(Builder builder) {
-        this.instanceConfiguration = builder.instanceConfiguration;
-    }
-
     public static class Builder {
+
         private String storeAlias;
         private String userToken;
         private String userSecretToken;
@@ -31,10 +35,9 @@ public class YampiSdk
             return this;
         }
 
-        public Builder setUserSecretToken(String userSecretToken) {
-            this.userSecretToken = userSecretToken;
+        public Builder setUserSecretToken(String token) {
+            this.userSecretToken = token;
             return this;
-
         }
 
         public Builder setEnvironment(String environment) {
@@ -43,15 +46,17 @@ public class YampiSdk
         }
 
         public YampiSdk build() {
+
             if (storeAlias == null || storeAlias.isBlank())
                 throw new IllegalStateException("Store alias is required");
+
             if (userToken == null || userToken.isBlank())
                 throw new IllegalStateException("User token is required");
+
             if (userSecretToken == null || userSecretToken.isBlank())
-                throw new IllegalStateException("user secret token is required");
-            this.instanceConfiguration = new YampiConfig(storeAlias, userToken, userSecretToken, environment);
+                throw new IllegalStateException("User secret token is required");
+
             return new YampiSdk(this);
         }
-
     }
 }
