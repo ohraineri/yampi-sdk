@@ -3,7 +3,7 @@ package me.raineri;
 public class TestSdk {
     public static void main(String[] args) {
 
-        YampiSdk sdk = YampiSdk.builder()
+        YampiClient sdk =  YampiClient.builder()
                 .setAlias("store123")
                 .setUserToken("token")
                 .setUserSecretToken("secret")

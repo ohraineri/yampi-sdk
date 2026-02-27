@@ -1,11 +1,11 @@
 package me.raineri;
 
 import me.raineri.client.YampiConfig;
-public class YampiSdk {
+public class YampiClient {
 
     private final YampiConfig config;
 
-    private YampiSdk(Builder builder) {
+    private YampiClient(Builder builder) {
         this.config = new YampiConfig(
                 builder.storeAlias,
                 builder.userToken,
@@ -16,7 +16,7 @@ public class YampiSdk {
 
     public static Builder builder() {
         return new Builder();
-    }
+    } 
 
     public static class Builder {
 
@@ -45,7 +45,7 @@ public class YampiSdk {
             return this;
         }
 
-        public YampiSdk build() {
+        public YampiClient build() {
 
             if (storeAlias == null || storeAlias.isBlank())
                 throw new IllegalStateException("Store alias is required");
@@ -56,7 +56,7 @@ public class YampiSdk {
             if (userSecretToken == null || userSecretToken.isBlank())
                 throw new IllegalStateException("User secret token is required");
 
-            return new YampiSdk(this);
+            return new YampiClient(this);
         }
     }
 }
